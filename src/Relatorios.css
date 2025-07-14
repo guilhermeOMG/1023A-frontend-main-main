@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* --- Variáveis Globais para fácil customização (reutilizado) --- */
+:root {
+  --cor-primaria: #007bff;
+  --cor-primaria-hover: #0056b3;
+  --cor-secundaria: #6c757d;
+  --cor-secundaria-hover: #5a6268;
+  --cor-sucesso: #28a745;
+  --cor-erro: #dc3545;
+  --cor-aviso: #ffc107;
+  --cor-fundo: #f4f7f9;
+  --cor-container: #ffffff;
+  --cor-texto: #333;
+  --cor-borda: #dee2e6;
+  --sombra-caixa: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --raio-borda: 8px;
+}
+
+/* --- Estilos Gerais (reutilizados) --- */
+/* NOTA: Em um projeto real, estes estilos (body, header, etc.) estariam em um arquivo CSS global (ex: App.css) para não serem repetidos. */
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.6;
+}
+
+header, footer {
+  background-color: var(--cor-container);
+  padding: 1rem 2rem;
+  box-shadow: var(--sombra-caixa);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav a {
+  text-decoration: none;
+  color: var(--cor-primaria);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+header nav a:hover {
+  color: var(--cor-primaria-hover);
+}
+
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+main > h2 {
+  color: var(--cor-primaria);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.mensagem {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--raio-borda);
+  color: #fff;
+  text-align: center;
+  font-weight: 500;
+}
+
+.mensagem.error {
+  background-color: var(--cor-erro);
+}
+
+/* --- Estilos Específicos para a Página de Relatórios --- */
+
+/* Container para os filtros de data */
+.filtros-relatorio {
+  background-color: var(--cor-container);
+  padding: 1.5rem 2rem;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-caixa);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.filtros-relatorio label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: var(--cor-secundaria);
+}
+
+.filtros-relatorio input[type="date"] {
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: var(--cor-texto);
+  min-width: 200px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filtros-relatorio input[type="date"]:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Estilos da Tabela de Relatórios */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--cor-container);
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-caixa);
+  overflow: hidden; /* Garante que o raio da borda seja aplicado nas células */
+}
+
+thead tr {
+  background-color: var(--cor-primaria);
+  color: #fff;
+  text-align: left;
+}
+
+th, td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  font-weight: 600;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--cor-borda);
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:nth-of-type(even) {
+  background-color: var(--cor-fundo);
+}
+
+tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+tbody tr:last-of-type {
+  border-bottom: none;
+}
+
+/* Estilo para a célula de "nenhum pedido" */
+td[colSpan="8"] {
+  text-align: center;
+  padding: 3rem;
+  color: var(--cor-secundaria);
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+/* Destaque para a coluna de Total */
+th:last-child,
+td:last-child {
+  text-align: right;
+  font-weight: 600;
+  color: var(--cor-primaria);
+}
+
+/* Indicador de Carregamento */
+.loading-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--cor-secundaria);
+  padding: 3rem;
+  font-weight: 500;
+}
