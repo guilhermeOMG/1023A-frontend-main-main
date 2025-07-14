@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+header {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10vw;
+    align-items: center;
+    min-height: 10vh;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header div {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+html, main {
+  height: 100%;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0px;
+}
+
+.bloco {
+  background-color: white;
+  padding: 60px 70px;
+  border: 1px solid #d3cfcf;
+  border-radius: 8px;
+  box-shadow: 10px 10px 20px rgba(30, 30, 30, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.bloco h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.bloco p {
+  margin-bottom: 20px;
+  color: #555;
+  font-size: 1rem;
+}
+
+.bloco h3 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #444;
+}
+
+.botao-usuario {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.botao-usuario:hover {
+  background-color: #0056b3;
+}

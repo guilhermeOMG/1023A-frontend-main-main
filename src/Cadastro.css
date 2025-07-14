@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10vw;
+    align-items: center;
+    min-height: 10vh;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header div {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav > ul > li > a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav > ul > li > a:hover {
+    color: #dfeeff;
+}
+
+main {
+    margin-top: 20px;
+    padding: 0 10vw;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+main > div {
+    flex: 1;
+}
+
+.container-listagem1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cliente-container1 {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(30, 30, 30, 0.05);
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.cliente-container1:hover {
+    transform: scale(1.02);
+}
+
+.container-cadastro1 > form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 0 10px rgba(30, 30, 30, 0.1);
+    border-radius: 8px;
+    background-color: white;
+    max-width: 400px;
+}
+
+/* INPUTS E SELECTS */
+form > input[type="text"],
+form > input[type="number"],
+form > input[type="email"],
+form > input[type="tel"],
+form > select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+form > input:focus,
+form > select:focus {
+    outline: 1px solid #007bff88;
+}
+
+form > input[type="submit"] {
+    max-width: 180px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form > input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* MENSAGEM DE ERRO OU SUCESSO */
+.mensagem1 {
+    position: absolute;
+    right: 15px;
+    top: -10px;
+    background-color: #F8D7DA;
+    color: #551219;
+    padding: 10px 20px;
+    border: 1px solid rgb(241, 174, 181);
+    border-radius: 4px;
+    font-weight: bold;
+}
