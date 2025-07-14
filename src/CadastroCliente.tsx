@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 interface ClientesState {
   id: number;
   nome: string;
-  cpf: string;
   email: string;
   endereco: string;
   genero: 'M' | 'F' | 'Outro';
