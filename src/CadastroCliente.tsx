@@ -1,17 +1,15 @@
-import  { useEffect, useState } from "react";
-import './Cadastro.css'; // Supondo que este arquivo exista e esteja estilizado adequadamente
+import { useEffect, useState } from "react";
+import './Cadastro.css';
 import { Link } from "react-router-dom";
 
-// Interface para um único cliente, conforme os requisitos do projeto
 interface Cliente {
   id: number;
   nome: string;
   email: string;
-  telefone: string;
   cpf: string;
+  senha: string;
 }
 
-// O estado do formulário pode omitir o id para novos clientes
 type FormState = Omit<Cliente, 'id'>;
 
 function CadastroCliente() {
@@ -20,8 +18,8 @@ function CadastroCliente() {
   const initialFormState: FormState = {
     nome: "",
     email: "",
-    telefone: "",
     cpf: "",
+    senha: ""
   };
 
   const [clientes, setClientes] = useState<Cliente[]>([]);
@@ -31,7 +29,6 @@ function CadastroCliente() {
   const [mensagem, setMensagem] = useState<{ type: 'success' | 'error', text: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Busca clientes da API
   useEffect(() => {
     const buscaDados = async () => {
       setLoading(true);
@@ -60,7 +57,6 @@ function CadastroCliente() {
     buscaDados();
   }, [searchQuery]);
 
-  // Limpa mensagem após 3 segundos
   useEffect(() => {
     if (mensagem) {
       const timer = setTimeout(() => setMensagem(null), 3000);
@@ -68,8 +64,7 @@ function CadastroCliente() {
     }
   }, [mensagem]);
 
-  // Função para atualizar o estado do formulário ao digitar nos inputs
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -77,7 +72,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectEle
     }));
   };
 
-const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setMensagem(null);
 
@@ -86,7 +81,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 
     try {
       const response = await fetch(url, {
-        method: method,
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
@@ -96,38 +91,32 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         setMensagem({ type: 'success', text: `Cliente ${editingClient ? 'atualizado' : 'cadastrado'} com sucesso!` });
         setFormData(initialFormState);
         setEditingClient(null);
-        // Atualiza lista localmente para evitar novo fetch
+
         if (editingClient) {
           setClientes(clientes.map(c => c.id === clienteAtualizado.id ? clienteAtualizado : c));
         } else {
           setClientes([...clientes, clienteAtualizado]);
         }
       } else {
-        let errorText = "Ocorreu um erro.";
-        try {
-          const errorData = await response.json();
-          errorText = errorData.message || errorText;
-        } catch {}
-        setMensagem({ type: 'error', text: errorText });
+        const errorData = await response.json();
+        setMensagem({ type: 'error', text: errorData.message || "Erro ao salvar cliente." });
       }
     } catch (error) {
       setMensagem({ type: 'error', text: "Erro na comunicação com a API." });
     }
   };
 
-  // Prepara o formulário para editar um cliente
   const handleEdit = (cliente: Cliente) => {
     setEditingClient(cliente);
     setFormData({
       nome: cliente.nome,
       email: cliente.email,
-      telefone: cliente.telefone,
       cpf: cliente.cpf,
+      senha: cliente.senha
     });
-    window.scrollTo(0, 0); // Rola para o topo para ver o formulário
+    window.scrollTo(0, 0);
   };
 
-  // Lida com a exclusão de um cliente
   const handleDelete = async (id: number) => {
     if (window.confirm("Tem certeza que deseja excluir este cliente?")) {
       try {
@@ -145,7 +134,6 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     }
   };
 
-  // Cancela a edição
   const cancelEdit = () => {
     setEditingClient(null);
     setFormData(initialFormState);
@@ -175,8 +163,8 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
           <form onSubmit={handleSubmit}>
             <input type="text" name="nome" placeholder="Nome" value={formData.nome} onChange={handleInputChange} required />
             <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} required />
-            <input type="text" name="telefone" placeholder="Telefone" value={formData.telefone} onChange={handleInputChange} required />
             <input type="text" name="cpf" placeholder="CPF" value={formData.cpf} onChange={handleInputChange} required />
+            <input type="password" name="senha" placeholder="Senha" value={formData.senha} onChange={handleInputChange} required />
             <input type="submit" value={editingClient ? 'Atualizar Cliente' : 'Cadastrar Cliente'} />
             {editingClient && <button type="button" onClick={cancelEdit}>Cancelar Edição</button>}
           </form>
@@ -198,8 +186,8 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
               <div key={cliente.id} className="cliente-container1">
                 <div><strong>Nome:</strong> {cliente.nome}</div>
                 <div><strong>Email:</strong> {cliente.email}</div>
-                <div><strong>Telefone:</strong> {cliente.telefone}</div>
                 <div><strong>CPF:</strong> {cliente.cpf}</div>
+                <div><strong>Senha:</strong> {cliente.senha}</div>
                 <div className="actions">
                   <button onClick={() => handleEdit(cliente)}>Editar</button>
                   <button onClick={() => handleDelete(cliente.id)}>Excluir</button>

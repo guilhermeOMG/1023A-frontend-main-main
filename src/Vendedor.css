@@ -1,147 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --cor-primaria: #007bff;
+  --cor-primaria-hover: #0056b3;
+  --cor-secundaria: #6c757d;
+  --cor-secundaria-hover: #5a6268;
+  --cor-sucesso: #28a745;
+  --cor-erro: #dc3545;
+  --cor-aviso: #ffc107;
+  --cor-fundo: #f4f7f9;
+  --cor-container: #ffffff;
+  --cor-texto: #333;
+  --cor-borda: #dee2e6;
+  --sombra-caixa: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --raio-borda: 8px;
+}
+
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.6;
 }
 
-header {
-    background-color: #007bff;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10vw;
-    align-items: center;
-    min-height: 10vh;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+header, footer {
+  background-color: var(--cor-container);
+  padding: 1rem 2rem;
+  box-shadow: var(--sombra-caixa);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-header div {
-    font-size: 1.5rem;
-    font-weight: bold;
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-nav > ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 20px;
+header nav a {
+  text-decoration: none;
+  color: var(--cor-primaria);
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-nav > ul > li > a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-nav > ul > li > a:hover {
-    color: #dfeeff;
+header nav a:hover {
+  color: var(--cor-primaria-hover);
 }
 
 main {
-    margin-top: 20px;
-    padding: 0 10vw;
-    display: flex;
-    position: relative;
-    justify-content: center;
-    gap: 40px;
-    align-items: flex-start;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-main > div {
-    flex: 1;
-}
-
-.container-listagem {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.vendedor-container {
-    background-color: white;
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(30, 30, 30, 0.05);
-    min-width: 220px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 8px;
-    transition: transform 0.2s;
-}
-
-.vendedor-container:hover {
-    transform: scale(1.02);
-}
-
-.container-cadastro > form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 30px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 0 10px rgba(30, 30, 30, 0.1);
-    border-radius: 8px;
-    background-color: white;
-    max-width: 400px;
-}
-
-/* INPUTS E SELECTS */
-form > input[type="text"],
-form > input[type="number"],
-form > input[type="email"],
-form > input[type="password"]
-form > input[type="tel"],
-form > select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-form > input:focus,
-form > select:focus {
-    outline: 1px solid #007bff88;
-}
-
-form > input[type="submit"] {
-    max-width: 180px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-form > input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-/* MENSAGEM DE ERRO OU SUCESSO */
+/* --- Mensagens de Feedback --- */
 .mensagem {
-    position: absolute;
-    right: 15px;
-    top: -10px;
-    background-color: #F8D7DA;
-    color: #551219;
-    padding: 10px 20px;
-    border: 1px solid rgb(241, 174, 181);
-    border-radius: 4px;
-    font-weight: bold;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--raio-borda);
+  color: #fff;
+  text-align: center;
+  font-weight: 500;
+  background-color: var(--cor-sucesso); /* Pode ajustar dinamicamente via classe JS */
 }
-form > input[type="password"] {
-    max-width: 180px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+
+/* --- Container do Formulário de Cadastro de Vendedor --- */
+.container-cadastro {
+  background-color: var(--cor-container);
+  padding: 2rem;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-caixa);
+  margin-bottom: 2rem;
+}
+
+.container-cadastro h2 {
+  margin-top: 0;
+  color: var(--cor-primaria);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.container-cadastro form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.container-cadastro input[type="text"],
+.container-cadastro input[type="email"],
+.container-cadastro input[type="password"],
+.container-cadastro select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.container-cadastro input:focus,
+.container-cadastro select:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.container-cadastro input[type="submit"] {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: var(--raio-borda);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: var(--cor-primaria);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  grid-column: 1 / -1;
+}
+
+.container-cadastro input[type="submit"]:hover {
+  background-color: var(--cor-primaria-hover);
+  transform: translateY(-2px);
 }

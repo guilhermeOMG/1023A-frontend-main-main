@@ -1,7 +1,5 @@
-/* Importando uma fonte moderna do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* --- Variáveis Globais para fácil customização --- */
 :root {
   --cor-primaria: #007bff;
   --cor-primaria-hover: #0056b3;
@@ -18,7 +16,6 @@
   --raio-borda: 8px;
 }
 
-/* --- Estilos Gerais do Corpo da Página --- */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -27,7 +24,6 @@ body {
   line-height: 1.6;
 }
 
-/* --- Layout Principal (Header, Main, Footer) --- */
 header, footer {
   background-color: var(--cor-container);
   padding: 1rem 2rem;
@@ -60,7 +56,6 @@ main {
   margin: 0 auto;
 }
 
-/* --- Mensagens de Feedback --- */
 .mensagem {
   padding: 1rem;
   margin-bottom: 1.5rem;
@@ -78,7 +73,6 @@ main {
   background-color: var(--cor-erro);
 }
 
-/* --- Container do Formulário de Cadastro --- */
 .container-cadastro1 {
   background-color: var(--cor-container);
   padding: 2rem;
@@ -100,9 +94,10 @@ main {
   gap: 1rem;
 }
 
-/* --- Estilos dos Inputs e Botões do Formulário --- */
+/* Adicionando input password */
 .container-cadastro1 input[type="text"],
-.container-cadastro1 input[type="email"] {
+.container-cadastro1 input[type="email"],
+.container-cadastro1 input[type="password"] {
   width: 100%;
   padding: 0.8rem 1rem;
   border: 1px solid var(--cor-borda);
@@ -129,7 +124,7 @@ main {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  grid-column: 1 / -1; /* Faz o botão ocupar a linha toda */
+  grid-column: 1 / -1;
 }
 
 .container-cadastro1 input[type="submit"] {
@@ -150,7 +145,6 @@ main {
   transform: translateY(-2px);
 }
 
-/* --- Container da Listagem de Clientes --- */
 .container-listagem1 {
   background-color: var(--cor-container);
   padding: 2rem;
@@ -175,7 +169,6 @@ main {
   box-sizing: border-box;
 }
 
-/* --- Estilo de cada Cliente na Lista --- */
 .cliente-container1 {
   background-color: #fff;
   border: 1px solid var(--cor-borda);
@@ -195,7 +188,7 @@ main {
 
 .cliente-container1 div {
   margin-bottom: 0.5rem;
-  flex-basis: 48%; /* Ocupa quase metade da largura */
+  flex-basis: 48%;
 }
 
 .cliente-container1 .actions {
@@ -204,7 +197,6 @@ main {
   text-align: right;
 }
 
-/* --- Botões de Ação (Editar/Excluir) --- */
 .actions button {
   padding: 0.5rem 1rem;
   border: none;
@@ -229,8 +221,10 @@ main {
   background-color: var(--cor-erro);
 }
 
-/* --- Indicador de Carregamento --- */
-p[loading] {
+/* Removido seletor inválido: p[loading] */
+/* Se quiser exibir loading, use uma classe como .loading */
+
+.loading {
   text-align: center;
   font-size: 1.2rem;
   color: var(--cor-secundaria);

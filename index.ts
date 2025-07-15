@@ -1,11 +1,11 @@
-import mysql from 'mysql2/promise';
 import fastify, { FastifyRequest, FastifyReply } from 'fastify';
 import cors from '@fastify/cors';
+import mysql from 'mysql2/promise';
 
 const app = fastify();
 app.register(cors);
 
-// Função utilitária para conectar ao banco
+// ================= CONEXÃO COM BANCO ================= //
 async function conectarBanco() {
   return await mysql.createConnection({
     host: 'localhost',
@@ -16,15 +16,15 @@ async function conectarBanco() {
   });
 }
 
-// ===================== ROTAS ========================== //
+// ===================== ROTAS CLIENTES ========================== //
 
 // GET: Buscar todos os clientes
 app.get('/clientes', async (request: FastifyRequest, reply: FastifyReply) => {
   try {
     const conn = await conectarBanco();
     const [dados] = await conn.query('SELECT * FROM clientes');
-    reply.status(200).send(dados);
     await conn.end();
+    reply.status(200).send(dados);
   } catch (erro: any) {
     tratarErro(erro, reply);
   }
@@ -40,8 +40,44 @@ app.post('/clientes', async (request: FastifyRequest, reply: FastifyReply) => {
       'INSERT INTO clientes (id, nome, email, senha, telefone) VALUES (?, ?, ?, ?, ?)',
       [id, nome, email, senha, telefone]
     );
-    reply.status(201).send({ id, nome, email, senha, telefone });
     await conn.end();
+    reply.status(201).send({ id, nome, email, senha, telefone });
+  } catch (erro: any) {
+    tratarErro(erro, reply);
+  }
+});
+
+// ===================== ROTAS VENDEDORES ========================== //
+
+// GET: Listar todos os vendedores
+app.get('/cadastrovendedor', async (request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const conn = await conectarBanco();
+    const [dados] = await conn.query('SELECT * FROM vendedores');
+    await conn.end();
+    reply.status(200).send(dados);
+  } catch (erro: any) {
+    tratarErro(erro, reply);
+  }
+});
+
+// POST: Cadastrar novo vendedor
+app.post('/cadastrovendedor', async (request: FastifyRequest, reply: FastifyReply) => {
+  const { nome, cpf, email, senha, genero } = request.body as any;
+
+  if (!nome || !cpf || !email || !senha || !genero) {
+    return reply.status(400).send({ mensagem: 'Preencha todos os campos.' });
+  }
+
+  try {
+    const conn = await conectarBanco();
+    const [resultado]: any = await conn.query(
+      'INSERT INTO vendedores (nome, cpf, email, senha, genero) VALUES (?, ?, ?, ?, ?)',
+      [nome, cpf, email, senha, genero]
+    );
+    await conn.end();
+
+    reply.status(200).send({ id: resultado.insertId, nome, cpf, email, senha, genero });
   } catch (erro: any) {
     tratarErro(erro, reply);
   }
@@ -52,21 +88,22 @@ app.get('/perfilvendedor', async (request: FastifyRequest, reply: FastifyReply) 
   try {
     const conn = await conectarBanco();
     const [rows]: any = await conn.query('SELECT * FROM vendedores LIMIT 1');
+    await conn.end();
 
     if (rows.length > 0) {
       reply.code(200).send(rows[0]);
     } else {
       reply.code(404).send({ mensagem: 'Nenhum vendedor encontrado.' });
     }
-    await conn.end();
   } catch (e: any) {
     tratarErro(e, reply);
   }
 });
 
-// DELETE: Deletar conta do vendedor
+// DELETE: Deletar vendedor por ID
 app.delete('/vendedor/:id', async (request: FastifyRequest, reply: FastifyReply) => {
   const { id } = request.params as { id: string };
+
   try {
     const conn = await conectarBanco();
     const [result]: any = await conn.query('DELETE FROM vendedores WHERE id = ?', [id]);
@@ -82,42 +119,38 @@ app.delete('/vendedor/:id', async (request: FastifyRequest, reply: FastifyReply)
   }
 });
 
-// ===================== FUNÇÃO DE ERRO ========================== //
+// ===================== ERRO GENÉRICO ========================== //
 
 function tratarErro(erro: any, reply: FastifyReply) {
   switch (erro.code) {
     case 'ECONNREFUSED':
       console.log('ERRO: Banco de dados não conectado.');
-      reply.status(400).send({ mensagem: 'ERRO: Banco de dados não conectado.' });
+      reply.status(500).send({ mensagem: 'Banco de dados não conectado.' });
       break;
     case 'ER_BAD_DB_ERROR':
-      console.log('ERRO: Banco de dados não encontrado.');
-      reply.status(400).send({ mensagem: 'ERRO: Banco de dados não encontrado.' });
+      reply.status(500).send({ mensagem: 'Banco de dados não encontrado.' });
       break;
     case 'ER_ACCESS_DENIED_ERROR':
-      console.log('ERRO: Usuário ou senha incorretos.');
-      reply.status(400).send({ mensagem: 'ERRO: Usuário ou senha incorretos.' });
+      reply.status(500).send({ mensagem: 'Usuário ou senha incorretos.' });
       break;
     case 'ER_DUP_ENTRY':
-      console.log('ERRO: ID duplicado na tabela.');
-      reply.status(400).send({ mensagem: 'ERRO: ID duplicado na tabela.' });
+      reply.status(400).send({ mensagem: 'Cadastro duplicado.' });
       break;
     case 'ER_NO_SUCH_TABLE':
-      console.log('ERRO: Tabela não existe.');
-      reply.status(400).send({ mensagem: 'ERRO: Tabela não existe.' });
+      reply.status(500).send({ mensagem: 'Tabela não existe.' });
       break;
     default:
-      console.log(erro);
-      reply.status(500).send({ mensagem: 'ERRO: Erro desconhecido. Veja o terminal.' });
+      console.error(erro);
+      reply.status(500).send({ mensagem: 'Erro desconhecido.' });
   }
 }
 
-// ===================== INICIALIZAÇÃO DO SERVIDOR ========================== //
+// ===================== INICIAR SERVIDOR ========================== //
 
 app.listen({ port: 8000 }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
   }
-  console.log(`Servidor rodando em ${address}`);
+  console.log(`🚀 Servidor rodando em ${address}`);
 });

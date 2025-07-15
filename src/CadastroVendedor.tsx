@@ -12,7 +12,7 @@ interface VendedorState {
     genero: string,
 }
 
-function PaginaCadastro() {
+function CadastroVendedor() {
     const [nome, setNome] = useState("")
     const [cpf, setCPF] = useState("")
     const [email, setEmail] = useState("")
@@ -130,4 +130,4 @@ function PaginaCadastro() {
         </>
     )
 }
-export default PaginaCadastro
+export default CadastroVendedor;
