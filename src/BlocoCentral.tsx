@@ -19,6 +19,7 @@ const BlocoCentral: React.FC = () => {
         <p>Bem-vindo à área administrativa.</p>
         <h3>Selecione uma área para gerenciar:</h3>
          <Link to="/clientes" className="botao-usuario">Gerenciar Clientes</Link>
+         <Link to="/cadastrovendedor" className="botao-usuario">Cadastrar Vendedor</Link>
          <Link to="/produtos" className="botao-usuario">Gerenciar Produtos</Link>
          <Link to="/relatorios" className="botao-usuario">Ver Relatórios</Link>
       </div>

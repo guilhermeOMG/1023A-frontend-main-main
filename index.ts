@@ -28,7 +28,7 @@ app.get('/clientes', async (request: FastifyRequest, reply: FastifyReply) => {
 
 // POST: Cadastrar um cliente
 app.post('/clientes', async (request: FastifyRequest, reply: FastifyReply) => {
-    const { id, nome, email, telefone } = request.body as any;
+    const { id, nome, email, senha, telefone } = request.body as any;
 
     try {
         const conn = await mysql.createConnection({
@@ -40,11 +40,11 @@ app.post('/clientes', async (request: FastifyRequest, reply: FastifyReply) => {
         });
 
         await conn.query(
-            "INSERT INTO clientes (id, nome, email, telefone) VALUES (?, ?, ?, ?)",
-            [id, nome, email, telefone]
+            "INSERT INTO clientes (id, nome, email, senha, telefone) VALUES (?, ?, ?, ?, ?)",
+            [id, nome, email, senha, telefone]
         );
 
-        reply.status(201).send({ id, nome, email, telefone });
+        reply.status(201).send({ id, nome, email, senha, telefone });
     } catch (erro: any) {
         tratarErro(erro, reply);
     }

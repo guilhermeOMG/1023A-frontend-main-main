@@ -5,6 +5,7 @@ import CadastroCliente from './CadastroCliente';
 import BlocoCentral from './BlocoCentral';
 import CadastroProduto from './CadastroProduto.tsx';
 import Relatorios from './Relatorios';
+//import CadastroVendedor from './CadastroVendedor.tsx';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     path: "/clientes",
     element: <CadastroCliente />,
   },
+  /*{
+    path: "/cadastrovendedor",
+    element: <CadastroVendedor />,
+  },*/
   {
     path: "/produtos",
     element: <CadastroProduto />,
